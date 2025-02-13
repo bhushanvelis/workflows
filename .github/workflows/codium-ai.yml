@@ -3,10 +3,8 @@ name: Run CodiumAI Tests
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
+  workflow_dispatch:
 
 jobs:
   generate-tests:
