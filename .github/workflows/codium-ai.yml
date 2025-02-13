@@ -6,24 +6,29 @@ on:
       - master
   workflow_dispatch:
 
+
 jobs:
   generate-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Run CodiumAI Action
-        uses: codium-ai/codium-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: "app.py"  # Target file
-          language: "python"
-          output: "test_results.json"  # Save results for analysis
+          python-version: "3.10"
+
+      - name: Install CodiumAI
+        run: pip install codiumai
+
+      - name: Run CodiumAI on app.py
+        run: codiumai analyze app.py --output test_results.json
 
       - name: Upload Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: codiumai-test-results
           path: test_results.json
+
 
