@@ -1,0 +1,25 @@
+name: Upload Dummy Artifact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Create Dummy File
+        run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
+
+      - name: Upload to JFrog
+        uses: ./.github/actions/jfrog-upload
+        with:
+          jfrog-url: ${{ secrets.JFROG_URL }}
+          jfrog-username: ${{ secrets.JFROG_USERNAME }}
+          jfrog-password: ${{ secrets.JFROG_PASSWORD }}
+          repo: dummy-repo-local
+          file: dummy.txt
+          target-path: "my-artifacts"
+
