@@ -12,7 +12,8 @@ jobs:
 
       - name: Create Dummy File
         run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
-
+      - name: Print repo
+        run: echo "repo is " ${{ secrets.JFROG_URL }}
       - name: Upload to JFrog
         uses: bhushanvelis/actions/jfrog-upload@v1
         with:
