@@ -14,7 +14,7 @@ jobs:
         run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
 
       - name: Upload to JFrog
-        uses: ./.github/actions/jfrog-upload
+        uses: bhushanvelis/actions/jfrog-upload@v1
         with:
           jfrog-url: ${{ secrets.JFROG_URL }}
           jfrog-username: ${{ secrets.JFROG_USERNAME }}
