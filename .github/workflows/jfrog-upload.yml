@@ -1,9 +1,7 @@
 name: Upload Dummy Artifact
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   upload:
