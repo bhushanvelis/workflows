@@ -1,14 +1,14 @@
-name: "JFrog Upload Action"
-description: "Upload dummy artifact to JFrog Artifactory"
+name: "jf Upload Action"
+description: "Upload dummy artifact to jf Artifactory"
 inputs:
-  jfrog-url:
-    description: "JFrog Artifactory URL"
+  jf-url:
+    description: "jf Artifactory URL"
     required: true
-  jfrog-username:
-    description: "JFrog username"
+  jf-username:
+    description: "jf username"
     required: true
-  jfrog-key:
-    description: "JFrog password or API key"
+  jf-key:
+    description: "jf password or API key"
     required: true
   repo:
     description: "Target repository in Artifactory"
@@ -22,34 +22,34 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup JFrog CLI
+    - name: Setup jf CLI
       shell: bash
       run: |
-        curl -fL https://getcli.jfrog.io | sh
-        sudo mv jfrog /usr/local/bin/
+        curl -fL https://getcli.jf.io | sh
+        sudo mv jf /usr/local/bin/
 
-    - name: Configure JFrog CLI
+    - name: Configure jf CLI
       shell: bash
       run: |
-        echo "🔑 Configuring JFrog CLI..."
-        jfrog config add my-server \
-          --artifactory-url "${{ inputs.jfrog-url }}" \
-          --user "${{ inputs.jfrog-username }}" \
-          --apikey "${{ inputs.jfrog-password }}" \
+        echo "🔑 Configuring jf CLI..."
+        jf config add my-server \
+          --artifactory-url "${{ inputs.jf-url }}" \
+          --user "${{ inputs.jf-username }}" \
+          --apikey "${{ inputs.jf-password }}" \
           --interactive=false \
           --overwrite \
           --enc-password=false
 
    
-    - name: Verify JFrog Connection
+    - name: Verify jf Connection
       shell: bash
       run: |
-        echo "🔍 Checking JFrog server connectivity..."
-        jfrog rt ping --server-id=my-server
-        echo "📜 Showing JFrog configuration..."
-        jfrog c show my-server
+        echo "🔍 Checking jf server connectivity..."
+        jf rt ping --server-id=my-server
+        echo "📜 Showing jf configuration..."
+        jf config show my-server
     
     - name: Upload Artifact
       shell: bash
       run: |
-        jfrog rt u "${{ inputs.file }}" "{{ inputs.target-path }}"
+        jf rt u "${{ inputs.file }}" "{{ inputs.target-path }}"
