@@ -19,7 +19,7 @@ jobs:
         with:
           jfrog-url: ${{ secrets.JFROG_URL }}
           jfrog-username: ${{ secrets.JFROG_USERNAME }}
-          jfrog-password: ${{ secrets.JFROG_PASSWORD }}
+          jfrog-key: ${{ secrets.JFROG_KEY }}
           repo: toolchains
           file: dummy.txt
           target-path: "my-artifacts"
