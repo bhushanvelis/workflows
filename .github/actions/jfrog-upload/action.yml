@@ -38,5 +38,7 @@ runs:
           --url "http://localhost:7000/artifactory" \
           --user "admin" \
           --password "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
+          --interactive=false \ 
+          --enc-password=false \
           --basic-auth-only=true
 
