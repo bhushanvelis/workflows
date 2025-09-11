@@ -5,7 +5,7 @@ on:
 
 jobs:
   upload_jfrog:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
