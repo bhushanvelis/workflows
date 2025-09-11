@@ -39,8 +39,7 @@ runs:
           --password "${{ inputs.jfrog-key }}" \
           --interactive=false \
           --overwrite \
-          --basic-auth-only=true \
-          --enc-password=false
+          --basic-auth-only=true
 
     - name: Test JFrog Connection
       shell: bash
