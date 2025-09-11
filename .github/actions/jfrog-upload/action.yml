@@ -31,32 +31,10 @@ runs:
         sudo mv jf /usr/local/bin/
         jf --version
 
-
-
-    - name: Configure JFrog CLI
-      shell: bash
-      run: |
-        echo "🔧 Configuring JFrog CLI..."
-        jf c show || true
-        jf c remove my-server || true
-        jfrog c add my-server \
-          --artifactory-url="${{ inputs.jfrog-url }}" \
-          --user="${{ inputs.jfrog-username }}" \
-          --password="${{ inputs.jfrog-key }}" \
-          --interactive=false \
-          --overwrite \
-          --basic-auth-only=true \
-          --enc-password=false
-
-    - name: Test JFrog Connection
-      shell: bash
-      run: |
-        echo "🔍 Pinging Artifactory..."
-        jf rt ping --server-id=my-server
-        jf c show my-server
-
+   
     - name: Upload Artifact
       shell: bash
       run: |
-        echo "⬆️ Uploading file: ${{ inputs.file }} → ${{ inputs.repo }}/${{ inputs.target-path }}/"
-        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
+        #echo "⬆️ Uploading file: ${{ inputs.file }} → ${{ inputs.repo }}/${{ inputs.target-path }}/"
+        #jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
+        jf rt u "${{ inputs.file }}" "http://localhost:7000/artifactory/toolchains/linux/dummy3.txt"
