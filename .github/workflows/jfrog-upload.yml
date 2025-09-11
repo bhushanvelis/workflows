@@ -2,24 +2,6 @@ name: Upload Dummy Artifact
 
 on:
   workflow_dispatch:
-    inputs:
-      jfrog-url:
-        description: "Artifactory URL"
-        required: true
-      jfrog-username:
-        description: "Artifactory Username"
-        required: true
-      jfrog-key:
-        description: "JFrog API Key (optional)"
-        required: false
-      file:
-        description: "File to upload"
-        required: true
-        default: "dummy.txt"
-      target-path:
-        description: "Artifactory target path"
-        required: true
-
 jobs:
   upload:
     runs-on: ubuntu-latest
