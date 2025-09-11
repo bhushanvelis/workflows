@@ -3,16 +3,22 @@ description: "Upload dummy artifact to JFrog Artifactory"
 inputs:
   jfrog-url:
     required: true
+    type: string
   jfrog-username:
     required: true
+    type: string
   jfrog-key:
     required: true
+    type: string
   repo:
     required: true
+    type: string
   file:
     required: true
+    type: string
   target-path:
     required: true
+    type: string
 
 runs:
   using: "composite"
