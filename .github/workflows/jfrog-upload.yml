@@ -6,6 +6,7 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    using: "composite"
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -17,19 +18,29 @@ jobs:
       
       - name: Configure JFrog CLI
         shell: bash
+      
+      - name: Setup JFrog CLI
+        shell: bash
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          sudo mv jfrog /usr/local/bin/
+  
+      - name: Configure JFrog CLI
+        shell: bash
         run: |
           jfrog config remove my-server
           jfrog config add my-server \
-            --artifactory-url ${{ secrets.JFROG_URL }} \
-            --user ${{ secrets.JFROG_USERNAME }} \
+            --artifactory-url "${{ inputs.jfrog-url }}" \
+            --user "${{ inputs.jfrog-username }}" \
+            --password bhushan123
             --apikey  "${{ inputs.jfrog-key }}" \
             --interactive=false \
             --overwrite \
             --enc-password=false
           OUTPUT=$(jfrog c show)
           echo "jfrog connection status ==> $OUTPUT" 
-
+  
       - name: Upload Artifact
         shell: bash
         run: |
-          jfrog rt u "dummy.txt" "http://localhost:7000/artifactory"    
+          jfrog rt u "${{ inputs.file }}" "${{ inputs.target-path }}"
