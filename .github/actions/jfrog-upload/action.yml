@@ -31,11 +31,15 @@ runs:
     - name: Configure JFrog CLI
       shell: bash
       run: |
+        echo "🔑 Configuring JFrog CLI..."
         jfrog config add my-server \
           --artifactory-url "${{ inputs.jfrog-url }}" \
           --user "${{ inputs.jfrog-username }}" \
-          --apikey "${{ inputs.jfrog-key }}" \
-          --interactive=false
+          --apikey "${{ inputs.jfrog-password }}" \
+          --interactive=false \
+          --overwrite \
+          --enc-password=false
+
    
     - name: Verify JFrog Connection
       shell: bash
