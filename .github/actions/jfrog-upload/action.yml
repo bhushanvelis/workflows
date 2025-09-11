@@ -23,10 +23,22 @@ runs:
   using: "composite"
   steps:
     - name: Setup JFrog CLI
-      run: curl -fL https://getcli.jfrog.io | sh && sudo mv jfrog /usr/local/bin/
+      shell: bash
+      run: |
+        curl -fL https://getcli.jfrog.io | sh
+        sudo mv jfrog /usr/local/bin/
 
     - name: Configure JFrog CLI
-      run: jfrog config add my-server --artifactory-url ${{ inputs.jfrog-url }} --user ${{ inputs.jfrog-username }} --apikey  ${{ inputs.jfrog-key }} --interactive=false
+      shell: bash
+      run: |
+        jfrog config add my-server \
+          --artifactory-url "${{ inputs.jfrog-url }}" \
+          --user "${{ inputs.jfrog-username }}" \
+          --apikey "${{ inputs.jfrog-key }}" \
+          --interactive=false
+        jfrog config show
 
     - name: Upload Artifact
-      run: jfrog rt u "${{ inputs.file }}" "${{ inputs.target-path }}"
+      shell: bash
+      run: |
+        jfrog rt u "${{ inputs.file }}" "{{ inputs.target-path }}"
