@@ -31,14 +31,19 @@ runs:
         sudo mv jf /usr/local/bin/
         jf --version
     
-    - name: Upload file to Artifactory
-      shell: bash
+    - name: Configure JFrog CLI
       run: |
-        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" \
-          --url "http://localhost:7000/artifactory" \
+        mkdir -p ~/.jfrog
+        jf c add my-server \
+          --artifactory-url "http://localhost:7000/artifactory" \
           --user "admin" \
           --password "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
-          --interactive=false \ 
-          --enc-password=false \
-          --basic-auth-only=true
+          --basic-auth-only=true \
+          --interactive=false \
+          --enc-password=false
+    
+    - name: Upload file to Artifactory
+      run: |
+        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" --server-id my-server
+
 
