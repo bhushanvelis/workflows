@@ -36,6 +36,6 @@ runs:
         jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" \
           --url "http://localhost:7000/artifactory" \
           --user "admin" \
-          --password "${{ secrets.JFROG_KEY}}" \
+          --password "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
           --basic-auth-only=true
 
