@@ -36,7 +36,9 @@ runs:
           --user "${{ inputs.jfrog-username }}" \
           --apikey "${{ inputs.jfrog-key }}" \
           --interactive=false
-        jfrog config show
+        OUTPUT=$(jfrog rt ping)
+        echo "jfrog connection status ==> $OUTPUT"
+        jfrog c show
 
     - name: Upload Artifact
       shell: bash
