@@ -32,6 +32,7 @@ runs:
         jf --version
     
     - name: Configure JFrog CLI
+      shell: bash
       run: |
         mkdir -p ~/.jfrog
         jf c add my-server \
@@ -43,5 +44,6 @@ runs:
           --enc-password=false
 
     - name: Upload file to Artifactory
+      shell: bash
       run: |
         jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" --server-id my-server
