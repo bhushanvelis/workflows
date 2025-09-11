@@ -6,7 +6,6 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    using: "composite"
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
