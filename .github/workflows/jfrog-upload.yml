@@ -2,6 +2,23 @@ name: Upload Dummy Artifact
 
 on:
   workflow_dispatch:
+    inputs:
+      jfrog-url:
+        description: "Artifactory URL"
+        required: true
+      jfrog-username:
+        description: "Artifactory Username"
+        required: true
+      jfrog-key:
+        description: "JFrog API Key (optional)"
+        required: false
+      file:
+        description: "File to upload"
+        required: true
+        default: "dummy.txt"
+      target-path:
+        description: "Artifactory target path"
+        required: true
 
 jobs:
   upload:
@@ -12,34 +29,27 @@ jobs:
 
       - name: Create Dummy File
         run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
+
       - name: Print repo
-        run: echo "repo is " ${{ secrets.JFROG_URL }}
-      
-      - name: Configure JFrog CLI
-        shell: bash
+        run: echo "repo is ${{ inputs.jfrog-url }}"
       
       - name: Setup JFrog CLI
-        shell: bash
         run: |
           curl -fL https://getcli.jfrog.io | sh
-          sudo mv jfrog /usr/local/bin/
-  
+          mv jfrog /usr/local/bin/
+
       - name: Configure JFrog CLI
-        shell: bash
         run: |
-          jfrog config remove my-server
+          jfrog config remove my-server || true
           jfrog config add my-server \
             --artifactory-url "${{ inputs.jfrog-url }}" \
             --user "${{ inputs.jfrog-username }}" \
-            --password bhushan123
-            --apikey  "${{ inputs.jfrog-key }}" \
+            --apikey "${{ inputs.jfrog-key }}" \
             --interactive=false \
-            --overwrite \
-            --enc-password=false
-          OUTPUT=$(jfrog c show)
-          echo "jfrog connection status ==> $OUTPUT" 
-  
+            --overwrite
+
+          jfrog c show
+
       - name: Upload Artifact
-        shell: bash
         run: |
-          jfrog rt u "${{ inputs.file }}" "${{ inputs.target-path }}"
+          jfrog rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
