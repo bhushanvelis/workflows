@@ -32,12 +32,10 @@ runs:
         jf --version
     
     - name: Upload file to Artifactory
-      shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt"
-        env:
-          JFROG_CLI_LOG_LEVEL: DEBUG
-          JF_URL: "http://localhost:7000/artifactory"
-          JF_USER: "admin"
-          JF_PASSWORD: "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz"
-          JF_BASIC_AUTH_ONLY: true
+        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" \
+          --url "http://localhost:7000/artifactory" \
+          --user "admin" \
+          --password "${{ secrets.JFROG_KEY}}" \
+          --basic-auth-only=true
+
