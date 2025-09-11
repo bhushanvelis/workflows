@@ -41,9 +41,9 @@ jobs:
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-server \
-            --artifactory-url "${{ inputs.jfrog-url }}" \
-            --user "${{ inputs.jfrog-username }}" \
-            --apikey "${{ inputs.jfrog-key }}" \
+            --artifactory-url "http://localhost:7000/artifactory" \
+            --user "admin" \
+            --apikey "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
             --interactive=false \
             --overwrite
 
@@ -51,4 +51,4 @@ jobs:
 
       - name: Upload Artifact
         run: |
-          jfrog rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
+          jfrog rt u "dummy.txt" "toolchains/linux/dummy.txt" --server-id=my-server
