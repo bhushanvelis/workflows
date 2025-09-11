@@ -1,7 +1,10 @@
 name: Upload Dummy Artifact
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -12,25 +15,11 @@ jobs:
       - name: Create Dummy File
         run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
 
-      - name: Print repo
-        run: echo "repo is ${{ inputs.jfrog-url }}"
-      
-      - name: Setup JFrog CLI
-        run: |
-          curl -fL https://getcli.jfrog.io | sh
-          mv jfrog /usr/local/bin/
-
-      - name: Configure JFrog CLI
-        run: |
-          jfrog config add my-server \
-            --artifactory-url "http://localhost:7000/artifactory" \
-            --user "admin" \
-            --apikey "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
-            --interactive=false \
-            --overwrite
-
-          jfrog c show
-
-      - name: Upload Artifact
-        run: |
-          jfrog rt u "dummy.txt" "toolchains/linux/dummy.txt" --server-id=my-server
+      - name: Upload to JFrog
+        uses: ./.github/actions/jfrog-upload
+        with:
+          jfrog-url: ${{ secrets.JFROG_URL }}
+          jfrog-username: ${{ secrets.JFROG_USERNAME }}
+          jfrog-password: ${{ secrets.JFROG_PASSWORD }}
+          file: dummy.txt
+          target-path: "toolchains/linux/dummy.txt"
