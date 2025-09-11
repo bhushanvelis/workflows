@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  upload:
+  upload_jfrog:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
