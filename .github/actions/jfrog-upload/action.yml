@@ -5,7 +5,7 @@ inputs:
     required: true
   jfrog-username:
     required: true
-  jfrog-password:
+  jfrog-key:
     required: true
   repo:
     required: true
@@ -33,7 +33,7 @@ runs:
         jf config add my-server \
           --artifactory-url "${{ inputs.jfrog-url }}" \
           --user "${{ inputs.jfrog-username }}" \
-          --apikey "${{ inputs.jfrog-password }}" \
+          --apikey "${{ inputs.jfrog-key }}" \
           --interactive=false \
           --overwrite \
           --enc-password=false
