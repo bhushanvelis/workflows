@@ -35,6 +35,7 @@ runs:
       shell: bash
       run: |
         mkdir -p ~/.jfrog
+        jc c remove my-server || true
         jf c add my-server \
           --artifactory-url "http://localhost:7000/artifactory" \
           --user "admin" \
