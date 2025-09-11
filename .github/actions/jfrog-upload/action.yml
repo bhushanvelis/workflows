@@ -31,11 +31,13 @@ runs:
         sudo mv jf /usr/local/bin/
         jf --version
 
-   
-    - name: Upload Artifact
-      shell: bash
-      run: |
-        #echo "⬆️ Uploading file: ${{ inputs.file }} → ${{ inputs.repo }}/${{ inputs.target-path }}/"
-        #jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
-        jf rt u "dummy.txt" "toolchains/linux/" --url="http://localhost:7000/artifactory" --user="admin" --password="AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz"
+   - name: Start Interactive Debug Session
+     uses: mxschmitt/action-tmate@v3
+
+   - name: Upload Artifact
+     shell: bash
+     run: |
+       #echo "⬆️ Uploading file: ${{ inputs.file }} → ${{ inputs.repo }}/${{ inputs.target-path }}/"
+       #jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
+       jf rt u "dummy.txt" "toolchains/linux/" --url="http://localhost:7000/artifactory" --user="admin" --password="AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz"
 
