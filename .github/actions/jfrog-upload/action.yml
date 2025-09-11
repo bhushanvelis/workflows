@@ -31,9 +31,6 @@ runs:
         sudo mv jf /usr/local/bin/
         jf --version
 
-   - name: Start Interactive Debug Session
-     uses: mxschmitt/action-tmate@v3
-
    - name: Upload Artifact
      shell: bash
      run: |
