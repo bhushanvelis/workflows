@@ -21,9 +21,11 @@ runs:
       shell: bash
       run: |
         echo "⬇️ Installing JFrog CLI v2.64.0..."
-        curl -fL https://getcli.jfrog.io | sh
+        curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2/2.64.0/jfrog-cli-linux-amd64/jf -o jf
         chmod +x jf
         sudo mv jf /usr/local/bin/
+        jf --version
+
 
     - name: Configure JFrog CLI
       shell: bash
