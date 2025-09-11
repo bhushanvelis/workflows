@@ -33,15 +33,15 @@ runs:
     
     - name: Configure JFrog CLI
       run: |
-      mkdir -p ~/.jfrog
-      jf c add my-server \
-        --artifactory-url "http://localhost:7000/artifactory" \
-        --user "admin" \
-        --password "${{ secrets.JFROG_KEY }}" \
-        --basic-auth-only=true \
-        --interactive=false \
-        --enc-password=false
+        mkdir -p ~/.jfrog
+        jf c add my-server \
+          --artifactory-url "http://localhost:7000/artifactory" \
+          --user "admin" \
+          --password "${{ secrets.JFROG_KEY }}" \
+          --basic-auth-only=true \
+          --interactive=false \
+          --enc-password=false
 
     - name: Upload file to Artifactory
       run: |
-      jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" --server-id my-server
+        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" --server-id my-server
