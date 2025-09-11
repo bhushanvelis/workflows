@@ -33,7 +33,7 @@ runs:
       shell: bash
       run: |
         echo "🔑 Configuring jfrog CLI..."
-        jfrog config add my-server \
+        jf c add my-server \
           --artifactory-url "${{ inputs.jfrog-url }}" \
           --user "${{ inputs.jfrog-username }}" \
           --apikey "${{ inputs.jfrog-password }}" \
