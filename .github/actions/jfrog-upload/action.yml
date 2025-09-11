@@ -46,11 +46,11 @@ runs:
       shell: bash
       run: |
         echo "🔍 Checking jfrog server connectivity..."
-        jf rt ping --server-id=my-server
+        jfrog rt ping --server-id=my-server
         echo "📜 Showing jfrog configuration..."
-        jf config show my-server
+        jfrog config show my-server
     
     - name: Upload Artifact
       shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "{{ inputs.target-path }}"
+        jforg rt u "${{ inputs.file }}" "{{ inputs.target-path }}"
