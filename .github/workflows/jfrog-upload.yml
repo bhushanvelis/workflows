@@ -22,5 +22,5 @@ jobs:
           jfrog-key: ${{ secrets.JFROG_KEY }}
           repo: toolchains
           file: dummy.txt
-          target-path: "my-artifacts"
+          target-path: "toolchains/linux/dummy.txt"
 
