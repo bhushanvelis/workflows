@@ -37,7 +37,7 @@ runs:
       run: |
         #echo "⬆️ Uploading file: ${{ inputs.file }} → ${{ inputs.repo }}/${{ inputs.target-path }}/"
         #jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id=my-server
-        jf rt u "${{ inputs.file }}" "artifactory/toolchains/linux/dummy3.txt" \
+        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" \
           --url "http://localhost:7000/artifactory" \
           --user "admin" \
           --apikey "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz"
