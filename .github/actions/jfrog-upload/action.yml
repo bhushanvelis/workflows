@@ -36,10 +36,7 @@ runs:
           --user "${{ inputs.jfrog-username }}" \
           --apikey "${{ inputs.jfrog-key }}" \
           --interactive=false
-        OUTPUT=$(jfrog rt ping)
-        echo "jfrog connection status ==> $OUTPUT"
-        jfrog c show
-    
+   
     - name: Verify JFrog Connection
       shell: bash
       run: |
