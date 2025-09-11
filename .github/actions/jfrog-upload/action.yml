@@ -1,14 +1,14 @@
-name: "jf Upload Action"
-description: "Upload dummy artifact to jf Artifactory"
+name: "jfrog Upload Action"
+description: "Upload dummy artifact to jfrog Artifactory"
 inputs:
-  jf-url:
-    description: "jf Artifactory URL"
+  jfrog-url:
+    description: "jfrog Artifactory URL"
     required: true
-  jf-username:
-    description: "jf username"
+  jfrog-username:
+    description: "jfrog username"
     required: true
-  jf-key:
-    description: "jf password or API key"
+  jfrog-key:
+    description: "jfrog password or API key"
     required: true
   repo:
     description: "Target repository in Artifactory"
@@ -22,31 +22,31 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup jf CLI
+    - name: Setup jfrog CLI
       shell: bash
       run: |
-        curl -fL https://getcli.jf.io | sh
-        sudo mv jf /usr/local/bin/
+        curl -fL https://getcli.jfrog.io | sh
+        sudo mv jfrog /usr/local/bin/
 
-    - name: Configure jf CLI
+    - name: Configure jfrog CLI
       shell: bash
       run: |
-        echo "🔑 Configuring jf CLI..."
+        echo "🔑 Configuring jfrog CLI..."
         jf config add my-server \
-          --artifactory-url "${{ inputs.jf-url }}" \
-          --user "${{ inputs.jf-username }}" \
-          --apikey "${{ inputs.jf-password }}" \
+          --artifactory-url "${{ inputs.jfrog-url }}" \
+          --user "${{ inputs.jfrog-username }}" \
+          --apikey "${{ inputs.jfrog-password }}" \
           --interactive=false \
           --overwrite \
           --enc-password=false
 
    
-    - name: Verify jf Connection
+    - name: Verify jfrog Connection
       shell: bash
       run: |
-        echo "🔍 Checking jf server connectivity..."
+        echo "🔍 Checking jfrog server connectivity..."
         jf rt ping --server-id=my-server
-        echo "📜 Showing jf configuration..."
+        echo "📜 Showing jfrog configuration..."
         jf config show my-server
     
     - name: Upload Artifact
