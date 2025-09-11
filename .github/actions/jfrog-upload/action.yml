@@ -32,6 +32,7 @@ runs:
         jf --version
     
     - name: Upload file to Artifactory
+      shell: bash
       run: |
         jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" \
           --url "http://localhost:7000/artifactory" \
