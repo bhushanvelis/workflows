@@ -39,7 +39,15 @@ runs:
         OUTPUT=$(jfrog rt ping)
         echo "jfrog connection status ==> $OUTPUT"
         jfrog c show
-
+    
+    - name: Verify JFrog Connection
+      shell: bash
+      run: |
+        echo "🔍 Checking JFrog server connectivity..."
+        jfrog rt ping --server-id=my-server
+        echo "📜 Showing JFrog configuration..."
+        jfrog c show my-server
+    
     - name: Upload Artifact
       shell: bash
       run: |
