@@ -37,7 +37,7 @@ runs:
         jf c add my-server \
           --artifactory-url "http://localhost:7000/artifactory" \
           --user "admin" \
-          --password "$AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
+          --password "AKCpBvWUa7JPuuicSK3piDztxKxPUK8jv8w5PzutGVZ8uuVkPGmrDJWvJKvyngcuyUbWtvDqz" \
           --basic-auth-only=true \
           --interactive=false \
           --enc-password=false
