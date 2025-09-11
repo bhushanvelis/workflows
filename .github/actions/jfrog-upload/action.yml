@@ -31,6 +31,7 @@ runs:
       shell: bash
       run: |
         echo "🔧 Configuring JFrog CLI..."
+        jf c show
         jf c remove my-server || true
         jf c add my-server \
           --artifactory-url "${{ inputs.jfrog-url }}" \
