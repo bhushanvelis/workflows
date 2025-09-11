@@ -14,15 +14,22 @@ jobs:
         run: echo "Hello from GitHub Actions at $(date)" > dummy.txt
       - name: Print repo
         run: echo "repo is " ${{ secrets.JFROG_URL }}
-      - name: Upload to JFrog
-        uses: bhushanvelis/actions/jfrog-upload@v1
-        with:
-          #jfrog-url: ${{ secrets.JFROG_URL }}
-          #jfrog-username: ${{ secrets.JFROG_USERNAME }}
-          jfrog-key: ${{ secrets.JFROG_KEY }}
-          repo: toolchains
-          file: dummy.txt
-          target-path: "toolchains/linux/dummy.txt"
-          jfrog-url: "http://localhost:7000/artifactory" 
-          jfrog-username: "admin"
-          
+      
+      - name: Configure JFrog CLI
+        shell: bash
+        run: |
+          jfrog config remove my-server
+          jfrog config add my-server \
+            --artifactory-url ${{ secrets.JFROG_URL }} \
+            --user ${{ secrets.JFROG_USERNAME }} \
+            --apikey  "${{ inputs.jfrog-key }}" \
+            --interactive=false \
+            --overwrite \
+            --enc-password=false
+          OUTPUT=$(jfrog c show)
+          echo "jfrog connection status ==> $OUTPUT" 
+
+      - name: Upload Artifact
+        shell: bash
+        run: |
+          jfrog rt u "dummy.txt" "http://localhost:7000/artifactory"    
