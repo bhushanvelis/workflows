@@ -40,9 +40,9 @@ runs:
         jf c show || true
         jf c remove my-server || true
         jfrog c add my-server \
-          --artifactory-url "${{ inputs.jfrog-url }}" \
-          --user "${{ inputs.jfrog-username }}" \
-          --password "${{ inputs.jfrog-key }}" \
+          --artifactory-url="${{ inputs.jfrog-url }}" \
+          --user="${{ inputs.jfrog-username }}" \
+          --password="${{ inputs.jfrog-key }}" \
           --interactive=false \
           --overwrite \
           --basic-auth-only=true \
