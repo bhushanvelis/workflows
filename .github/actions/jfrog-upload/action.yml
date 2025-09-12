@@ -13,6 +13,10 @@ inputs:
     required: true
   target-path:
     required: true
+  properties-file:
+    required: false
+    default: ".json/properties.json"  
+
 
 runs:
   using: "composite"
@@ -42,10 +46,23 @@ runs:
           --basic-auth-only=true \
           --interactive=false \
           --enc-password=false
+    - name: Prepare Properties
+      id: build-props
+      shell: bash
+      run: |
+        echo "Reading properties from ${{ inputs.properties-file }}..."
+        PROPS=$(jq -r 'to_entries | map("\(.key)=\(.value|tostring)") | join(";")' ${{ inputs.properties-file }})
+        echo "Generated Props: $PROPS"
+        echo "props=$PROPS" >> $GITHUB_OUTPUT
     
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id my-server
+        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" 
+          --server-id my-server \
+          --props "${{ steps.build-props.outputs.props }}" \
+          --build-name $(jq -r '.["build.name"]' ${{ inputs.properties-file }}) \
+          --build-number $(jq -r '.["build.number"]' ${{ inputs.properties-file }})
+        echo "Upload completed ✅"
 
 
