@@ -5,3 +5,4 @@ git.commit: ${{ github.sha }}
 version: 1.0.0
 ci.url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 ci.workflow: ${{ github.workflow }}
+
