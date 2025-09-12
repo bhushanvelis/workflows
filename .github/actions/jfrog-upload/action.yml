@@ -46,20 +46,15 @@ runs:
           --basic-auth-only=true \
           --interactive=false \
           --enc-password=false
-    - name: Prepare Properties
-      id: build-props
+          
+    - name: Read Build Properties
       shell: bash
       run: |
-        FILE="${GITHUB_WORKSPACE}/${{ inputs.properties-file }}"
+        FILE=".jfrog/properties.yml"
         echo "Reading properties from $FILE..."
-        if [[ ! -f "$FILE" ]]; then
-          echo "❌ ERROR: Properties file not found: $FILE"
-          ls -R "${GITHUB_WORKSPACE}" || true
-          exit 1
-        fi
-        PROPS=$(jq -r 'to_entries | map("\(.key)=\(.value|tostring)") | join(";")' "$FILE")
+        PROPS=$(yq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "$FILE")
         echo "Generated Props: $PROPS"
-        echo "props=$PROPS" >> $GITHUB_OUTPUT
+        echo "props=$PROPS" >> $GITHUB_ENV
 
     
     - name: Upload file to Artifactory
