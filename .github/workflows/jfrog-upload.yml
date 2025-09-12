@@ -22,4 +22,5 @@ jobs:
           jfrog-key: ${{ secrets.JFROG_KEY }}
           file: dummy.txt
           repo: dummy-repo-local
-          target-path: "toolchains/linux/dummy.txt"
+          target-path: "toolchains/linux/dummy4.txt"
+          properties-file: ".json/properties.json"
