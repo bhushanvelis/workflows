@@ -52,7 +52,7 @@ runs:
       run: |
         FILE=".jfrog/properties.yml"
         echo "Reading properties from $FILE..."
-        PROPS=$(yq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "$FILE")
+        PROPS=$(jq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "$FILE")
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
 
