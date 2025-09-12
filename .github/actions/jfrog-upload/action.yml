@@ -47,14 +47,20 @@ runs:
           --interactive=false \
           --enc-password=false
           
-    - name: Read Build Properties
+    - name: Generate build properties
       shell: bash
       run: |
-        FILE=".jfrog/properties.yml"
-        echo "Reading properties from $FILE..."
-        PROPS=$(jq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "$FILE")
+        echo "Generating build properties..."
+        PROPS="build.name=service1"
+        PROPS="${PROPS};build.number=${GITHUB_RUN_ID}"
+        PROPS="${PROPS};git.branch=${GITHUB_REF_NAME}"
+        PROPS="${PROPS};git.commit=${GITHUB_SHA::7}"
+        PROPS="${PROPS};version=1.0.0"
+        PROPS="${PROPS};ci.url=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+        PROPS="${PROPS};ci.workflow=${GITHUB_WORKFLOW}"
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
+
 
     
     - name: Upload file to Artifactory
