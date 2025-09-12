@@ -33,7 +33,7 @@ runs:
         jf c add my-server \
           --artifactory-url "http://localhost:7000/artifactory" \
           --user "admin" \
-          --password ${{ secrets.JFROG_KEY }} \
+          --password "${{ inputs.jfrog-key }}" \
           --basic-auth-only=true \
           --interactive=false \
           --enc-password=false
