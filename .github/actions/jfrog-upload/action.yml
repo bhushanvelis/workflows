@@ -20,10 +20,15 @@ runs:
     - name: Setup JFrog CLI (v2.64.0)
       shell: bash
       run: |
-        curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.64.0/jfrog-cli-linux-amd64/jf -o jf
-        chmod +x jf
-        sudo mv jf /usr/local/bin/
-        jf --version
+        if ! command -v jf &> /dev/null; then
+          echo "JFrog CLI not found. Installing locally..."
+          curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.64.0/jfrog-cli-linux-amd64/jf -o ./jf
+          chmod +x ./jf
+          echo "${GITHUB_WORKSPACE}" >> $GITHUB_PATH
+        else
+          echo "JFrog CLI already installed: $(jf --version)"
+        fi
+
     
     - name: Configure JFrog CLI
       shell: bash
