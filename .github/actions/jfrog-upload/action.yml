@@ -31,8 +31,8 @@ runs:
         mkdir -p ~/.jfrog
         jf c remove my-server || true
         jf c add my-server \
-          --artifactory-url "http://localhost:7000/artifactory" \
-          --user "admin" \
+          --artifactory-url "${{ inputs.jfrog-url }}" \
+          --user "${{ inputs.jfrog-username }}"\
           --password "${{ inputs.jfrog-key }}" \
           --basic-auth-only=true \
           --interactive=false \
@@ -41,6 +41,6 @@ runs:
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "toolchains/linux/dummy3.txt" --server-id my-server
+        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id my-server
 
 
