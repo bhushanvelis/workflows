@@ -7,15 +7,19 @@ inputs:
     required: true
   jfrog-key:
     required: true
-  repo:
+  #repo:
+  #  required: true
+  #file:
+  #  required: true
+  #target-path:
+  #  required: true
+  #properties-file:
+  #  required: false
+  #  default: ".jfrog/properties.json"  
+  spec-file:
     required: true
-  file:
+  props-file:
     required: true
-  target-path:
-    required: true
-  properties-file:
-    required: false
-    default: ".jfrog/properties.json"  
 
 
 runs:
@@ -32,7 +36,16 @@ runs:
         else
           echo "JFrog CLI already installed: $(jf --version)"
         fi
-
+    - name: Setup yq
+      shell: bash
+      run: |
+        if ! command -v yq &>/dev/null; then
+          echo "Installing yq..."
+          curl -sL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o yq
+          chmod +x yq
+          sudo mv yq /usr/local/bin/
+        fi
+        yq --version
     
     - name: Configure JFrog CLI
       shell: bash
@@ -47,30 +60,30 @@ runs:
           --interactive=false \
           --enc-password=false
           
-    - name: Generate build properties
+    - name: Generate Props String from YML
+      id: props
       shell: bash
       run: |
-        echo "Generating build properties..."
-        PROPS="build.name=service1"
-        PROPS="${PROPS};build.number=${GITHUB_RUN_ID}"
-        PROPS="${PROPS};git.branch=${GITHUB_REF_NAME}"
-        PROPS="${PROPS};git.commit=${GITHUB_SHA::7}"
-        PROPS="${PROPS};version=1.0.0"
-        PROPS="${PROPS};ci.url=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-        PROPS="${PROPS};ci.workflow=${GITHUB_WORKFLOW}"
+        echo "Reading properties from ${{ inputs.props-file }}..."
+        PROPS=$(yq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "${{ inputs.props-file }}")
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
 
 
-    
-    - name: Upload file to Artifactory
+    - name: Upload Artifact with JFrog Spec
       shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" \\
-          --server-id my-server \
-          --props "${{ steps.build-props.outputs.props }}" \
-          --build-name $(jq -r '.["build.name"]' ${{ inputs.properties-file }}) \
-          --build-number $(jq -r '.["build.number"]' ${{ inputs.properties-file }})
-        echo "Upload completed ✅"
+        echo "Uploading artifacts using spec: ${{ inputs.spec-file }}"
+        jf rt u --spec="${{ inputs.spec-file }}" --server-id my-server --props "${{ env.props }}"
+        
+    #- name: Upload file to Artifactory
+    #  shell: bash
+     # run: |
+      #  jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" \\
+       #   --server-id my-server \
+        #  --props "${{ steps.build-props.outputs.props }}" \
+         # --build-name $(jq -r '.["build.name"]' ${{ inputs.properties-file }}) \
+          #--build-number $(jq -r '.["build.number"]' ${{ inputs.properties-file }})
+        #echo "Upload completed ✅"
 
 
