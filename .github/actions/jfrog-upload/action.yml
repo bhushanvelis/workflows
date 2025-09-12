@@ -15,7 +15,7 @@ inputs:
     required: true
   properties-file:
     required: false
-    default: ".json/properties.json"  
+    default: ".jfrog/properties.json"  
 
 
 runs:
