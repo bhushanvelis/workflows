@@ -66,7 +66,7 @@ runs:
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" 
+        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" \\
           --server-id my-server \
           --props "${{ steps.build-props.outputs.props }}" \
           --build-name $(jq -r '.["build.name"]' ${{ inputs.properties-file }}) \
