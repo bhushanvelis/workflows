@@ -23,4 +23,4 @@ jobs:
           file: dummy.txt
           repo: dummy-repo-local
           target-path: "toolchains/linux/dummy4.txt"
-          properties-file: ".json/properties.json"
+          properties-file: ".jfrog/properties.json"
