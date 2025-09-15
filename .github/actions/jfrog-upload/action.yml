@@ -71,7 +71,7 @@ runs:
         echo "Generated Props: $PROPS"
         sed "s|\$props|$PROPS|" .jfrog/spec.json > .jfrog/spec_with_props.json
         
-        cat .jfrog/spec.json  
+        cat .jfrog/spec_with_props.json  
 
 
     - name: Upload file to Artifactory
