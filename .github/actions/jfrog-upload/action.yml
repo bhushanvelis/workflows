@@ -69,18 +69,7 @@ runs:
         #PROPS=$(cat "$FILE")
         PROPS=$(envsubst < .jfrog/properties.txt | tr '\n' ';' | sed 's/;$//')
         echo "Generated Props: $PROPS"
-        cat <<EOF > .jfrog/spec.json
-        {
-          "files": [
-            {
-              "pattern": "dummy.txt",
-              "target": "toolchains/linux/",
-              "flat": "true",
-              "props": "$PROPS"
-            }
-          ]
-        }
-        EOF
+        sed "s|\$props|$PROPS|" .jfrog/spec.json > .jfrog/spec_with_props.json
         
         cat .jfrog/spec.json  
 
