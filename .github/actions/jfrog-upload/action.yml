@@ -75,7 +75,7 @@ runs:
       shell: bash
       run: |
         echo "Uploading artifacts using spec: ${{ inputs.spec-file }}"
-        jf rt u --spec="${{ inputs.spec-file }}" --server-id my-server
+        jf rt u --spec="${{ inputs.spec-file }}" --spec-type=yaml --server-id my-server
         
     #- name: Upload file to Artifactory
     #  shell: bash
