@@ -60,12 +60,13 @@ runs:
           --interactive=false \
           --enc-password=false
           
-    - name: Generate Props String from YML
-      id: props
+    - name: Read properties from text file
+      id: read-props
       shell: bash
       run: |
-        echo "Reading properties from ${{ inputs.props-file }}..."
-        PROPS=$(yq eval 'to_entries | map("\(.key)=\(.value)") | join(";")' "${{ inputs.props-file }}")
+        FILE=".jfrog/properties.txt"
+        echo "Reading properties from $FILE..."
+        PROPS=$(cat "$FILE")
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
 
