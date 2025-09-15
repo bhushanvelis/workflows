@@ -66,7 +66,9 @@ runs:
       run: |
         FILE=".jfrog/properties.txt"
         echo "Reading properties from $FILE..."
-        PROPS=$(cat "$FILE")
+        #PROPS=$(cat "$FILE")
+        PROPS=$(envsubst < .jfrog/properties.txt | tr '\n' ';' | sed 's/;$//')
+        echo "Generated Props: $PROPS"
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
 
