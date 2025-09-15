@@ -64,10 +64,10 @@ runs:
       id: read-props
       shell: bash
       run: |
-        FILE=".jfrog/properties.txt"
+        #FILE=".jfrog/properties.txt"
         echo "Reading properties from $FILE..."
         #PROPS=$(cat "$FILE")
-        PROPS=$(envsubst < .jfrog/properties.txt | tr '\n' ';' | sed 's/;$//')
+        PROPS=$(envsubst < {{ inputs.props-file }} | tr '\n' ';' | sed 's/;$//')
         echo "Generated Props: $PROPS"
         sed "s|\$props|$PROPS|" ${{ inputs.spec-file }} > .jfrog/spec_with_props.json
         
