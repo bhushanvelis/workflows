@@ -24,5 +24,6 @@ jobs:
           #repo: dummy-repo-local
           target-path: "toolchains/linux/dummy5.txt"
           #properties-file: ".jfrog/properties.json"
-          spec-file: .jfrog/spec.yml
+          #spec-file: .jfrog/spec.yml
+          spec-file: .jfrog/spec.json
           props-file: .jfrog/properties.yml
