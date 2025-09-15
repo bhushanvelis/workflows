@@ -11,8 +11,8 @@ inputs:
   #  required: true
   file:
     required: true
-  target-path:
-    required: true
+  #target-path:
+  #  required: true
   #properties-file:
   #  required: false
   #  default: ".jfrog/properties.json"  
