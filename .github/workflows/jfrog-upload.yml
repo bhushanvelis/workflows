@@ -21,7 +21,7 @@ jobs:
           jfrog-username: ${{ secrets.JFROG_USERNAME }}
           jfrog-key: ${{ secrets.JFROG_KEY }}
           file: dummy.txt
-          repo: dummy-repo-local
+          #repo: dummy-repo-local
           target-path: "toolchains/linux/dummy5.txt"
           #properties-file: ".jfrog/properties.json"
           spec-file: .jfrog/spec.yml
