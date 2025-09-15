@@ -36,16 +36,6 @@ runs:
         else
           echo "JFrog CLI already installed: $(jf --version)"
         fi
-    - name: Setup yq
-      shell: bash
-      run: |
-        if ! command -v yq &>/dev/null; then
-          echo "Installing yq..."
-          curl -sL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o yq
-          chmod +x yq
-          sudo mv yq /usr/local/bin/
-        fi
-        yq --version
     
     - name: Configure JFrog CLI
       shell: bash
