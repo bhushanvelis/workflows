@@ -2,7 +2,7 @@
   "files": [
     {
       "pattern": "dummy.txt",
-      "target": "toolchains/linux/",
+      "target": "toolchains/linux/dummy5.txt",
       "flat": "true",
       "props": "$props"
     }
