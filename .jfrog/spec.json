@@ -4,6 +4,7 @@
       "pattern": "dummy.txt",
       "target": "toolchains/linux/",
       "flat": "true",
+    }
   ]
 }
 
