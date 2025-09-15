@@ -70,29 +70,39 @@ runs:
         echo "Generated Props: $PROPS"
         echo "props=$PROPS" >> $GITHUB_ENV
 
-    - name: Generate JFrog Spec from properties file
-      shell: bash
-      run: |
-        FILE=".jfrog/properties.txt"
-        echo "Reading properties from $FILE..."
-    
-        # Convert text file to semicolon-separated properties
-        PROPS=$(cat "$FILE" | sed "s/\$/\\\$/g" | tr '\n' ';' | sed 's/;$//')
-        echo "Generated Props: $PROPS"
-    
-        # Generate spec.json with expanded properties
-        cat <<EOF > .jfrog/spec.json
+    - name: Generate JFrog spec from properties.txt
+  shell: bash
+  run: |
+    FILE=".jfrog/properties.txt"
+    echo "Reading properties from $FILE..."
+
+    # Convert key=value lines to semicolon-separated string
+    PROPS=$(while IFS= read -r line; do
+      # Skip empty lines
+      [ -z "$line" ] && continue
+      # Expand env vars in the line
+      eval "echo -n \"$line;\""
+    done < "$FILE")
+
+    echo "Generated props: $PROPS"
+
+    # Create spec.json
+    mkdir -p .jfrog
+    cat <<EOF > .jfrog/spec.json
+{
+  "files": [
     {
-      "files": [
-        {
-          "pattern": "${GITHUB_WORKSPACE}/dummy.txt",
-          "target": "toolchains/linux/",
-          "flat": "true",
-          "props": "$PROPS"
-        }
-      ]
+      "pattern": "${GITHUB_WORKSPACE}/dummy.txt",
+      "target": "toolchains/linux/",
+      "flat": "true",
+      "props": "$PROPS"
     }
+  ]
+}
 EOF
+    echo "spec.json created:"
+    cat .jfrog/spec.json
+
 
        
     - name: Upload file to Artifactory
