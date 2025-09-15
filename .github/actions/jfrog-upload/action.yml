@@ -75,7 +75,7 @@ runs:
       shell: bash
       run: |
         echo "Uploading artifacts using spec: ${{ inputs.spec-file }}"
-        jf rt u "${{github.workspace}}/dummy.txt" "0toolchains/linux/" --server-id my-server
+        jf rt u "${{github.workspace}}/dummy.txt" "toolchains/linux/" --server-id my-server
         
     #- name: Upload file to Artifactory
     #  shell: bash
