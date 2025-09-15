@@ -1,5 +1,5 @@
 files:
-  - pattern: "${GITHUB_WORKSPACE}/dummy.txt"
+  - pattern: "${{github.workspace}}/dummy.txt"
     target: "toolchains/linux/"
     flat: true
 
