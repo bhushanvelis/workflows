@@ -76,7 +76,6 @@ runs:
       shell: bash
       run: |
         jf rt u --spec=".jfrog/spec.yml" --server-id=my-server
-       # jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id my-server 
-        #echo "Upload completed ✅"
+
 
 
