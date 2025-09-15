@@ -1,4 +1,3 @@
-# .jfrog/spec.yml
 files:
   - pattern: "${{ github.workspace }}/dummy.txt"
     target: "toolchains/linux/"
