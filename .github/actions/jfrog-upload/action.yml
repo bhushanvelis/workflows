@@ -75,7 +75,7 @@ runs:
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u --spec="inputs.spec-file" --server-id=my-server
+        jf rt u --spec="{{ inputs.spec-file }}" --server-id=my-server
 
 
 
