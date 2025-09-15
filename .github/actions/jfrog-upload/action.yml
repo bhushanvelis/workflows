@@ -74,9 +74,10 @@ runs:
        
     - name: Upload file to Artifactory
       shell: bash
-      run: |
+      #run: |
         #jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" --server-id my-server 
         #echo "Upload completed ✅"
+      run: |
         jf rt u --spec=".jfrog/spec.yml" --server-id=my-server
 
 
