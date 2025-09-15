@@ -9,10 +9,10 @@ inputs:
     required: true
   #repo:
   #  required: true
-  #file:
-  #  required: true
-  #target-path:
-  #  required: true
+  file:
+    required: true
+  target-path:
+    required: true
   #properties-file:
   #  required: false
   #  default: ".jfrog/properties.json"  
@@ -71,20 +71,12 @@ runs:
         echo "props=$PROPS" >> $GITHUB_ENV
 
 
-    - name: Upload Artifact with JFrog Spec
+       
+    - name: Upload file to Artifactory
       shell: bash
       run: |
-        echo "Uploading artifacts using spec: ${{ inputs.spec-file }}"
-        jf rt u "${{github.workspace}}/dummy.txt" "toolchains/test/" --server-id my-server
-        
-    #- name: Upload file to Artifactory
-    #  shell: bash
-     # run: |
-      #  jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" \\
-       #   --server-id my-server \
-        #  --props "${{ steps.build-props.outputs.props }}" \
-         # --build-name $(jq -r '.["build.name"]' ${{ inputs.properties-file }}) \
-          #--build-number $(jq -r '.["build.number"]' ${{ inputs.properties-file }})
-        #echo "Upload completed ✅"
+        jf rt u "${{ inputs.file }}" "${{ inputs.target-path }}" \\
+          --server-id my-server 
+        echo "Upload completed ✅"
 
 
