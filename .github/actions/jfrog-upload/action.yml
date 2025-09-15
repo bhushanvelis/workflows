@@ -73,7 +73,7 @@ runs:
         echo "props=$PROPS" >> $GITHUB_ENV
               echo "Creating spec.json..."
         # Insert "props" line before the closing } of the first object
-        sed -i "s|}[\s]*$|  \"props\": \"$PROPS\"\n}|g" .jfrog/spec.json
+        sed -i "s|\(\s*}\s*\)$|    \"props\": \"$PROPS\"\n\1|" .jfrog/spec.json
         
         cat .jfrog/spec.json  
 
