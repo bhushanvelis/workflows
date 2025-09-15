@@ -1,6 +1,6 @@
 files:
   - pattern: "${{ github.workspace }}/dummy.txt"
-    target: "toolchains/linux/"
+    target: "toolchains/linux/dummy7"
     flat: true
     props: |
       build.name=service1;
