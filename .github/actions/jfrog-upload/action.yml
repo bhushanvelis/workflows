@@ -87,12 +87,12 @@ runs:
         echo "key,value" > build_info.csv
         echo "vcs.branch,$GITHUB_REF_NAME" >> build_info.csv
         echo "vcs.revision,$GITHUB_SHA" >> build_info.csv
-        jf rt bag "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --key git.branch --value $GITHUB_REF_NAME
+        jf rt bag "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
         rm build_info.csv
 
     - name: Publish Build Info
       shell: bash
       run: |
-        jf rt build-publish "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --server-id my-server
+        jf rt build-publish "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --props "$PROPS" --server-id my-server
 
 
