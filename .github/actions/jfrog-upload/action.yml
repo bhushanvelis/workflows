@@ -82,10 +82,10 @@ runs:
 
 
             # Collect environment and system variables
-        jf rt bce $BUILD_NAME $BUILD_NUMBER --server-id=my-server
+        jf rt bce $BUILD_NAME $BUILD_NUMBER 
         
         # Collect Git info
-        jf rt bag $BUILD_NAME $BUILD_NUMBER . --server-id=my-server
+        jf rt bag $BUILD_NAME $BUILD_NUMBER . 
         
         # Publish build info
-        jf rt bp $BUILD_NAME $BUILD_NUMBER --server-id=my-serverR
+        jf rt bp $BUILD_NAME $BUILD_NUMBER --server-id=my-server
