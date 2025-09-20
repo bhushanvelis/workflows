@@ -82,6 +82,7 @@ runs:
 
 
     - name: Create Build Bag with VCS Data
+      shell: bash
       run: |
         echo "key,value" > build_info.csv
         echo "vcs.branch,$GITHUB_REF_NAME" >> build_info.csv
