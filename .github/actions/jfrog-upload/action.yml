@@ -36,7 +36,7 @@ runs:
     #     else
     #       echo "JFrog CLI already installed: $(jf --version)"
     #     fi
-     - name: Setup JFrog CLI (Official Action)
+    - name: Setup JFrog CLI (Official Action)
       uses: jfrog/setup-jfrog-cli@v4
       with:
         version: 2.64.0
