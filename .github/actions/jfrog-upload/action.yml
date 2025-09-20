@@ -89,4 +89,4 @@ runs:
         jf rt bag ${{ inputs.build-name }} ${{ inputs.build-number }}  . 
         
         # Publish build info
-        jf rt bp ${{ inputs.build-name }} ${{ inputs.build-number }}  
+        jf rt bp ${{ inputs.build-name }} ${{ inputs.build-number }} --props="$PROPS"
