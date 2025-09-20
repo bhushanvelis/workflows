@@ -88,4 +88,4 @@ runs:
         jf rt bag $BUILD_NAME $BUILD_NUMBER . 
         
         # Publish build info
-        jf rt bp $BUILD_NAME $BUILD_NUMBER --server-id=my-server
+        jf rt bp $BUILD_NAME $BUILD_NUMBER 
