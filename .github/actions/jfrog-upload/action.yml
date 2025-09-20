@@ -78,25 +78,15 @@ runs:
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server
+        jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server \
+          --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER \
 
 
-    - name: Stage Build Metadata
-      shell: bash
-      run: |
-        BUILD_NAME="my-build"
-        BUILD_NUMBER=$GITHUB_RUN_ID
-    
-        jf rt bag $BUILD_NAME $BUILD_NUMBER \
-          --module="module1" \
-          --prop="build.name=service1" \
-          --prop="git.branch=$GITHUB_REF_NAME" \
-          --prop="git.commit=$GITHUB_SHA" \
-          --prop="version=1.0.0" \
-          --prop="ci.workflow=$GITHUB_WORKFLOW" \
-          --prop="ci.url=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-    
-    - name: Publish Build
-      shell: bash
-      run: |
-        jf bp $BUILD_NAME $BUILD_NUMBER
+            # Collect environment and system variables
+        jf rt bce $BUILD_NAME $BUILD_NUMBER --server-id=my-server
+        
+        # Collect Git info
+        jf rt bag $BUILD_NAME $BUILD_NUMBER . --server-id=my-server
+        
+        # Publish build info
+        jf rt bp $BUILD_NAME $BUILD_NUMBER --server-id=my-serverR
