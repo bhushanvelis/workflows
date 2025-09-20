@@ -81,18 +81,17 @@ runs:
         jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server
 
 
+    - name: Create Build Bag with VCS Data
+      run: |
+        echo "key,value" > build_info.csv
+        echo "vcs.branch,$GITHUB_REF_NAME" >> build_info.csv
+        echo "vcs.revision,$GITHUB_SHA" >> build_info.csv
+        jf rt bag "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --csv-file build_info.csv
+        rm build_info.csv
+
     - name: Publish Build Info
       shell: bash
       run: |
-        jf rt build-publish "${{ inputs.build-name }}" "${{ inputs.build-number }}" --server-id my-server
-
-    - name: Create Build Bag with CSV Data
-      shell: bash
-      run: |
-        echo "build-name,build-number,other-data" > build_info.csv
-        jf rt bag "${{ github.repository }}" "${{ github.run_id }}" --from=build_info.csv
-        rm build_info.csv --server-id my-server
-    
-
+        jf rt build-publish "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --server-id my-server
 
 
