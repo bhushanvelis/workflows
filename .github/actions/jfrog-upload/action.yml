@@ -27,9 +27,7 @@ inputs:
     required: false
     default: ${{ github.run_id }}       # default = GitHub run ID
 
-env:
-  BUILD_NAME: my-build
-  BUILD_NUMBER: ${{ github.run_id }}
+
 runs:
   using: "composite"
 
@@ -85,10 +83,10 @@ runs:
 
 
             # Collect environment and system variables
-        jf rt bce $BUILD_NAME $BUILD_NUMBER 
+        jf rt bce ${{ inputs.build-name }} ${{ inputs.build-number }} 
         
         # Collect Git info
-        jf rt bag $BUILD_NAME $BUILD_NUMBER . 
+        jf rt bag ${{ inputs.build-name }} ${{ inputs.build-number }}  . 
         
         # Publish build info
-        jf rt bp $BUILD_NAME $BUILD_NUMBER 
+        jf rt bp ${{ inputs.build-name }} ${{ inputs.build-number }}  
