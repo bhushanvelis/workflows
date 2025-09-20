@@ -87,7 +87,7 @@ runs:
         BUILD_NAME="my-build"
         BUILD_NUMBER=$GITHUB_RUN_ID
     
-        jf rt bag --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER \
+        jf rt bag $BUILD_NAME $BUILD_NUMBER \
           --module="module1" \
           --prop="build.name=service1" \
           --prop="git.branch=$GITHUB_REF_NAME" \
