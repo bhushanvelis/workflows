@@ -78,8 +78,7 @@ runs:
     - name: Upload file to Artifactory
       shell: bash
       run: |
-        jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server \
-          --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER \
+        jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER \
 
 
             # Collect environment and system variables
