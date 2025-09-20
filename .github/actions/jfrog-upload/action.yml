@@ -30,6 +30,9 @@ inputs:
 
 runs:
   using: "composite"
+  env:
+    BUILD_NAME: my-build
+    BUILD_NUMBER: ${{ github.run_id }}
   steps:
     # - name: Setup JFrog CLI (v2.64.0)
     #   shell: bash
