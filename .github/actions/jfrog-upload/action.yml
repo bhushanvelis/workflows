@@ -90,9 +90,9 @@ runs:
       shell: bash
       run: |
         echo "build-name,build-number,other-data" > build_info.csv
-        echo "${{ inputs.build-name }},${{ inputs.build-number }},workflow=${GITHUB_WORKFLOW}" >> build_info.csv
-        jf rt bag "${{ inputs.build-name }}" "${{ inputs.build-number }}" --files build_info.csv --server-id my-server
-        rm build_info.csv
+        jf rt bag "${{ github.repository }}" "${{ github.run_id }}" --from=build_info.csv
+        rm build_info.csv --server-id my-server
+    
 
 
 
