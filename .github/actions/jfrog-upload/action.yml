@@ -93,6 +93,6 @@ runs:
     - name: Publish Build Info
       shell: bash
       run: |
-        jf rt bp "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --props "$PROPS" --server-id my-server
+        jf rt bp "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" --props "key=value" --server-id my-server
 
 
