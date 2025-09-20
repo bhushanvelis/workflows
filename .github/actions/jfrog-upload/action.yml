@@ -20,6 +20,12 @@ inputs:
     required: true
   props-file:
     required: true
+  build-name:
+    required: false
+    default: ${{ github.repository }}   # default = repo name
+  build-number:
+    required: false
+    default: ${{ github.run_id }}       # default = GitHub run ID
 
 
 runs:
@@ -73,6 +79,20 @@ runs:
       shell: bash
       run: |
         jf rt u --spec=".jfrog/spec_with_props.json" --server-id=my-server
+
+
+    - name: Publish Build Info
+      shell: bash
+      run: |
+        jf rt build-publish "${{ inputs.build-name }}" "${{ inputs.build-number }}" --server-id my-server
+
+    - name: Create Build Bag with CSV Data
+      shell: bash
+      run: |
+        echo "build-name,build-number,other-data" > build_info.csv
+        echo "${{ inputs.build-name }},${{ inputs.build-number }},workflow=${GITHUB_WORKFLOW}" >> build_info.csv
+        jf rt bag "${{ inputs.build-name }}" "${{ inputs.build-number }}" --files build_info.csv --server-id my-server
+        rm build_info.csv
 
 
 
